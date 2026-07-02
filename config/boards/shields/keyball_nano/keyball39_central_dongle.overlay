@@ -5,6 +5,8 @@
  */
 
 #include "keyball39.dtsi"
+#include <dt-bindings/zmk/keys.h>
+#include <input/processors.dtsi>
 
 / {
     #address-cells = <1>;
@@ -30,6 +32,32 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&split_trackball>;
+
+        scroll {
+            layers = <1>;
+            input-processors = <&zip_xy_to_scroll_mapper>;
+        };
+
+        caret_scroll {
+            layers = <3>;
+            input-processors = <&trackball_arrows>;
+        };
+
+        snipe {
+            layers = <6>;
+            input-processors = <&zip_xy_scaler 1 4>;
+        };
+    };
+
+    trackball_arrows: trackball_arrows {
+        compatible = "keyball,input-processor-trackball-arrows";
+        #input-processor-cells = <0>;
+        tick = <10>;
+        bindings =
+            <&kp RIGHT_ARROW>,
+            <&kp LEFT_ARROW>,
+            <&kp UP_ARROW>,
+            <&kp DOWN_ARROW>;
     };
 };
 

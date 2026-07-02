@@ -1,0 +1,17 @@
+description: Convert relative trackball movement into directional behavior taps.
+
+compatible: "keyball,input-processor-trackball-arrows"
+
+include: base.yaml
+
+properties:
+  tick:
+    type: int
+    required: true
+  bindings:
+    type: phandle-array
+    required: true
+  track-remainders:
+    type: boolean
+
+input-processor-cells: []
