@@ -53,6 +53,8 @@
         compatible = "keyball,input-processor-trackball-arrows";
         #input-processor-cells = <0>;
         tick = <10>;
+        tap-ms = <5>;
+        wait-ms = <20>;
         bindings =
             <&kp RIGHT_ARROW>,
             <&kp LEFT_ARROW>,

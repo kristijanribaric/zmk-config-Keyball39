@@ -9,17 +9,21 @@
 
 #include <drivers/input_processor.h>
 #include <zmk/behavior.h>
+#include <zmk/behavior_queue.h>
 #include <zmk/events/position_state_changed.h>
 #include <zmk/virtual_key_position.h>
 
 struct trackball_arrows_config {
     int16_t tick;
+    uint16_t tap_ms;
+    uint16_t wait_ms;
     struct zmk_behavior_binding bindings[4];
 };
 
 struct trackball_arrows_data {
     int16_t x;
     int16_t y;
+    int64_t next_trigger_at;
 };
 
 static int trackball_arrows_handle_event(const struct device *dev, struct input_event *event,
@@ -39,6 +43,11 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
         data->y += event->value;
     }
 
+    int64_t now = k_uptime_get();
+    if (now < data->next_trigger_at) {
+        return ZMK_INPUT_PROC_STOP;
+    }
+
     int binding_index = -1;
     if (abs(data->x) > config->tick) {
         binding_index = data->x > 0 ? 0 : 1;
@@ -49,18 +58,23 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
     if (binding_index >= 0) {
         struct zmk_behavior_binding_event behavior_event = {
             .position = ZMK_VIRTUAL_KEY_POSITION_BEHAVIOR_INPUT_PROCESSOR(
-                state->input_device_index, 0),
-            .timestamp = k_uptime_get(),
+                state->input_device_index, binding_index),
+            .timestamp = now,
 #if IS_ENABLED(CONFIG_ZMK_SPLIT)
             .source = ZMK_POSITION_STATE_CHANGE_SOURCE_LOCAL,
 #endif
         };
 
-        zmk_behavior_invoke_binding(&config->bindings[binding_index], behavior_event, true);
-        zmk_behavior_invoke_binding(&config->bindings[binding_index], behavior_event, false);
+        int ret = zmk_behavior_queue_add(&behavior_event, config->bindings[binding_index], true,
+                                         config->tap_ms);
+        if (ret >= 0) {
+            ret = zmk_behavior_queue_add(&behavior_event, config->bindings[binding_index], false,
+                                         config->wait_ms);
+        }
 
         data->x = 0;
         data->y = 0;
+        data->next_trigger_at = now + config->tap_ms + config->wait_ms;
     }
 
     return ZMK_INPUT_PROC_STOP;
@@ -86,6 +100,8 @@ static int trackball_arrows_init(const struct device *dev) { return 0; }
                  "trackball arrows requires four bindings: right, left, up, down");                \
     static const struct trackball_arrows_config trackball_arrows_config_##n = {                    \
         .tick = DT_INST_PROP(n, tick),                                                            \
+        .tap_ms = DT_INST_PROP(n, tap_ms),                                                        \
+        .wait_ms = DT_INST_PROP(n, wait_ms),                                                      \
         .bindings = {LISTIFY(4, TRACKBALL_ARROWS_BINDING, (, ), n)},                              \
     };                                                                                             \
     static struct trackball_arrows_data trackball_arrows_data_##n;                                 \

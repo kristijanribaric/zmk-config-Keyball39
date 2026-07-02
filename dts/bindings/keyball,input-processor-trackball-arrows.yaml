@@ -8,6 +8,12 @@ properties:
   tick:
     type: int
     required: true
+  tap-ms:
+    type: int
+    default: 5
+  wait-ms:
+    type: int
+    default: 20
   bindings:
     type: phandle-array
     required: true
