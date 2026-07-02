@@ -61,6 +61,7 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
     if (data->active) {
         data->x = 0;
         data->y = 0;
+        event->value = 0;
         return ZMK_INPUT_PROC_STOP;
     }
 
@@ -69,6 +70,8 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
     } else {
         data->y += event->value;
     }
+
+    event->value = 0;
 
     int binding_index = -1;
     if (abs(data->x) > config->tick) {
