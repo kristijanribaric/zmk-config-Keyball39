@@ -52,7 +52,7 @@
     trackball_arrows: trackball_arrows {
         compatible = "keyball,input-processor-trackball-arrows";
         #input-processor-cells = <0>;
-        tick = <10>;
+        tick = <1>;
         key-codes = <RIGHT_ARROW LEFT_ARROW UP_ARROW DOWN_ARROW>;
     };
 };
