@@ -122,7 +122,7 @@
 &kp GRAVE  &kp EXCLAMATION  &kp QUESTION  &kp MINUS  &kp PLUS                       &kp DOLLAR     &kp UNDERSCORE     &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp CARET
 &kp HASH   &kp ASTERISK     &kp SLASH     &kp EQUAL  &kp AMPERSAND                  &kp SEMICOLON  &kp LS(SEMICOLON)  &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(APOSTROPHE)
 &kp TILDE  &kp BACKSLASH    &kp PIPE      &kp AT     &kp PERCENT                    &kp LESS_THAN  &kp GREATER_THAN   &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp APOSTROPHE
-&trans     &trans           &trans        &trans     &trans         &trans  &trans  &trans                                                                         &trans
+&trans     &trans           &trans        &trans     &kp CAPSLOCK   &trans  &trans  &trans                                                                         &trans
             >;
         };
 
@@ -139,9 +139,9 @@
         nav_layer {
             label = "NAV";
             bindings = <
-&trans             &trans                &kp LC(Y)              &kp LC(Z)           &kp LG(V)                   &kp RA(BACKSLASH)  &kp HOME        &kp UP_ARROW    &kp END          &kp INSERT
-&kp C_VOLUME_UP    &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp LC(C)           &kp LC(V)                   &kp PAGE_UP        &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &mkp MB5
-&kp C_VOLUME_DOWN  &trans                &kp RA(SEMICOLON)      &kp RA(APOSTROPHE)  &kt LC(X)                   &kp PAGE_DOWN      &mkp LCLK       &mkp RCLK       &mkp MCLK        &mkp MB4
+&kp C_VOLUME_UP    &trans                &kp LC(Y)              &kp LC(Z)           &kp LG(V)                   &kp RA(BACKSLASH)  &kp HOME        &kp UP_ARROW    &kp END          &kp INSERT
+&kp C_VOLUME_DOWN  &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp LC(C)           &kp LC(V)                   &kp PAGE_UP        &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &mkp MB5
+&trans             &trans                &kp RA(SEMICOLON)      &kp RA(APOSTROPHE)  &kt LC(X)                   &kp PAGE_DOWN      &mkp LCLK       &mkp RCLK       &mkp MCLK        &mkp MB4
 &trans             &trans                &bootloader            &trans              &trans     &trans  &kp TAB  &kp DELETE                                                          &trans
             >;
         };
