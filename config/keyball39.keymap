@@ -4,6 +4,7 @@
 #define FUN     3
 #define NAV     4
 #define MOUSE   5
+#define SNIPE   6
 
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/mouse.h>
