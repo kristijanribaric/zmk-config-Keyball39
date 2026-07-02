@@ -130,20 +130,20 @@
         function_layer {
             label = "FUN";
             bindings = <
-&kp F1  &kp F2   &kp F3   &kp F4   &none                   &none   &none  &none  &none  &none
-&kp F5  &kp F6   &kp F7   &kp F8   &none                   &none   &none  &none  &none  &none
-&kp F9  &kp F10  &kp F11  &kp F12  &none                   &none   &none  &none  &none  &none
-&trans  &trans   &trans   &trans   &trans  &trans  &trans  &trans                       &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &kp F7  &kp F8  &kp F9  &kp F10
+&trans  &trans  &trans  &trans  &trans                  &trans  &kp F4  &kp F5  &kp F6  &kp F11
+&trans  &trans  &trans  &trans  &trans                  &trans  &kp F1  &kp F2  &kp F3  &kp F12
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                          &trans
             >;
         };
 
         mouse_layer {
             label = "MOUSE";
             bindings = <
-&kp N1          &kp N2          &kp N3        &kp N4     &kp N5                  &kp N6         &kp N7     &kp N8  &kp N9     &kp N0
-&kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &none                   &kp PAGE_UP    &mkp LCLK  &none   &mkp RCLK  &mkp MCLK
-&none           &none           &none         &none      &none                   &kp PAGE_DOWN  &none      &none   &none      &none
-&none           &trans          &trans        &trans     &trans  &trans  &trans  &mo 3                                        &none
+&trans  &trans  &trans  &trans  &trans                  &trans    &trans     &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans                  &mkp MB5  &mkp LCLK  &mkp RCLK  &trans  &mkp MCLK
+&trans  &trans  &trans  &trans  &trans                  &mkp MB4  &trans     &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                                  &trans
             >;
         };
 
@@ -160,10 +160,20 @@
         snipe_layer {
             label = "SNIPE";
             bindings = <
-&trans  &trans  &trans  &trans  &bootloader                  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                       &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                       &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans                          &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                          &trans
+            >;
+        };
+
+        nav_layer {
+            label = "NAV";
+            bindings = <
+&trans             &trans                &kp LC(Y)              &kp LC(Z)           &kp LG(V)                   &kp RA(BACKSLASH)  &kp HOME        &kp UP_ARROW    &kp END          &kp INSERT
+&kp C_VOLUME_UP    &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp LC(C)           &kp LC(V)                   &kp PAGE_UP        &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &mkp MB5
+&kp C_VOLUME_DOWN  &trans                &kp RA(SEMICOLON)      &kp RA(APOSTROPHE)  &kt LC(X)                   &kp PAGE_DOWN      &mkp LCLK       &mkp RCLK       &mkp MCLK        &mkp MB4
+&trans             &trans                &bootloader            &trans              &trans     &trans  &kp TAB  &kp DELETE                                                          &trans
             >;
         };
     };
