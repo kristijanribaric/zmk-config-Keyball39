@@ -5,6 +5,7 @@
  */
  
 #include "keyball39.dtsi"
+#include <dt-bindings/zmk/keys.h>
 
 &default_transform {
     col-offset = <6>;
