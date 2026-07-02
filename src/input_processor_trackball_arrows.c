@@ -9,7 +9,6 @@
 
 #include <drivers/input_processor.h>
 #include <zmk/behavior.h>
-#include <zmk/behavior_queue.h>
 #include <zmk/events/position_state_changed.h>
 #include <zmk/virtual_key_position.h>
 
@@ -23,8 +22,24 @@ struct trackball_arrows_config {
 struct trackball_arrows_data {
     int16_t x;
     int16_t y;
+    const struct device *dev;
+    struct k_work_delayable release_work;
+    struct zmk_behavior_binding_event event;
+    uint8_t binding_index;
+    bool active;
     int64_t next_trigger_at;
 };
+
+static void trackball_arrows_release_work(struct k_work *work) {
+    struct k_work_delayable *delayable = k_work_delayable_from_work(work);
+    struct trackball_arrows_data *data =
+        CONTAINER_OF(delayable, struct trackball_arrows_data, release_work);
+    const struct trackball_arrows_config *config = data->dev->config;
+
+    zmk_behavior_invoke_binding(&config->bindings[data->binding_index], data->event, false);
+    data->active = false;
+    data->next_trigger_at = k_uptime_get() + config->wait_ms;
+}
 
 static int trackball_arrows_handle_event(const struct device *dev, struct input_event *event,
                                          uint32_t param1, uint32_t param2,
@@ -36,16 +51,18 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
 
     const struct trackball_arrows_config *config = dev->config;
     struct trackball_arrows_data *data = dev->data;
+    int64_t now = k_uptime_get();
+
+    if (data->active || now < data->next_trigger_at) {
+        data->x = 0;
+        data->y = 0;
+        return ZMK_INPUT_PROC_STOP;
+    }
 
     if (event->code == INPUT_REL_X) {
         data->x += event->value;
     } else {
         data->y += event->value;
-    }
-
-    int64_t now = k_uptime_get();
-    if (now < data->next_trigger_at) {
-        return ZMK_INPUT_PROC_STOP;
     }
 
     int binding_index = -1;
@@ -56,7 +73,7 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
     }
 
     if (binding_index >= 0) {
-        struct zmk_behavior_binding_event behavior_event = {
+        data->event = (struct zmk_behavior_binding_event) {
             .position = ZMK_VIRTUAL_KEY_POSITION_BEHAVIOR_INPUT_PROCESSOR(
                 state->input_device_index, binding_index),
             .timestamp = now,
@@ -64,17 +81,14 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
             .source = ZMK_POSITION_STATE_CHANGE_SOURCE_LOCAL,
 #endif
         };
+        data->binding_index = binding_index;
+        data->active = true;
 
-        int ret = zmk_behavior_queue_add(&behavior_event, config->bindings[binding_index], true,
-                                         config->tap_ms);
-        if (ret >= 0) {
-            ret = zmk_behavior_queue_add(&behavior_event, config->bindings[binding_index], false,
-                                         config->wait_ms);
-        }
+        zmk_behavior_invoke_binding(&config->bindings[binding_index], data->event, true);
+        k_work_schedule(&data->release_work, K_MSEC(config->tap_ms));
 
         data->x = 0;
         data->y = 0;
-        data->next_trigger_at = now + config->tap_ms + config->wait_ms;
     }
 
     return ZMK_INPUT_PROC_STOP;
@@ -84,7 +98,14 @@ static struct zmk_input_processor_driver_api trackball_arrows_api = {
     .handle_event = trackball_arrows_handle_event,
 };
 
-static int trackball_arrows_init(const struct device *dev) { return 0; }
+static int trackball_arrows_init(const struct device *dev) {
+    struct trackball_arrows_data *data = dev->data;
+
+    data->dev = dev;
+    k_work_init_delayable(&data->release_work, trackball_arrows_release_work);
+
+    return 0;
+}
 
 #define TRACKBALL_ARROWS_BINDING(i, n)                                                            \
     {                                                                                              \
