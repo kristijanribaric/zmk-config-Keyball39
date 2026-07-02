@@ -83,6 +83,18 @@
             require-prior-idle-ms = <0>;
             flavor = "tap-preferred";
         };
+
+        hl: hl {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HL";
+            bindings = <&mo>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <190>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <0>;
+            flavor = "tap-preferred";
+        };
     };
 
     macros {
@@ -101,9 +113,9 @@
             label = "BASE";
             bindings = <
 &kp Q             &kp W         &kp E     &kp R                &kp T                                          &kp Z          &kp U  &kp I      &kp O    &kp P
-&hm LEFT_SHIFT A  &kp S         &kp D     &lt 1 F              &kp G                                          &kp H          &kp J  &kp K      &kp L    &hm RIGHT_SHIFT SEMI
-&hm LCTRL Y       &kp X         &kp C     &lt 3 V              &kp B                                          &kp N          &kp M  &kp COMMA  &kp DOT  &hm RCTRL SLASH
-&kp TAB           &kp LEFT_WIN  &kp LALT  &mt LEFT_GUI ESCAPE  &st LALT LEFT_SHIFT  &lt 4 SPACE  &lt 2 ENTER  &kp BACKSPACE                             &mo 5
+&hm LEFT_SHIFT A  &kp S         &kp D     &hl 1 F              &kp G                                          &kp H          &kp J  &kp K      &kp L    &hm RIGHT_SHIFT SEMI
+&hm LCTRL Y       &kp X         &kp C     &hl 3 V              &kp B                                          &kp N          &kp M  &kp COMMA  &kp DOT  &hm RCTRL SLASH
+&kp TAB           &kp LEFT_WIN  &kp LALT  &mt LEFT_GUI ESCAPE  &st LALT LEFT_SHIFT  &hl 4 SPACE  &hl 2 ENTER  &kp BACKSPACE                             &mo 5
             >;
         };
 
