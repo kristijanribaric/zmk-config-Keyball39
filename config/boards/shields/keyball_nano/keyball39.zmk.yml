@@ -9,5 +9,6 @@ features:
   - pointer
   - underglow
 siblings:
+  - keyball39_central_dongle
   - keyball39_left
   - keyball39_right

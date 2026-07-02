@@ -1,0 +1,5 @@
+if(CONFIG_PMW3610)
+  zephyr_library()
+  zephyr_library_sources(src/pmw3610_peripheral_stubs.c)
+  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)
+endif()
