@@ -26,6 +26,11 @@
         compatible = "zmk,input-split";
         reg = <0>;
     };
+
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&split_trackball>;
+    };
 };
 
 &keyball_physical_layout {
