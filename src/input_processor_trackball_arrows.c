@@ -8,22 +8,44 @@
 #include <zephyr/kernel.h>
 
 #include <drivers/input_processor.h>
-#include <zmk/behavior_queue.h>
-#include <zmk/events/position_state_changed.h>
-#include <zmk/keymap.h>
-#include <zmk/virtual_key_position.h>
+#include <zmk/events/keycode_state_changed.h>
 
 struct trackball_arrows_config {
     int16_t tick;
     uint16_t tap_ms;
     uint16_t wait_ms;
-    struct zmk_behavior_binding bindings[4];
+    zmk_key_t key_codes[4];
 };
 
 struct trackball_arrows_data {
     int16_t x;
     int16_t y;
+    const struct device *dev;
+    struct k_work tap_work;
+    struct k_work_delayable release_work;
+    uint8_t key_index;
+    bool active;
 };
+
+static void trackball_arrows_release_work(struct k_work *work) {
+    struct k_work_delayable *delayable = k_work_delayable_from_work(work);
+    struct trackball_arrows_data *data =
+        CONTAINER_OF(delayable, struct trackball_arrows_data, release_work);
+    const struct trackball_arrows_config *config = data->dev->config;
+
+    raise_zmk_keycode_state_changed_from_encoded(config->key_codes[data->key_index], false,
+                                                 k_uptime_get());
+    data->active = false;
+}
+
+static void trackball_arrows_tap_work(struct k_work *work) {
+    struct trackball_arrows_data *data = CONTAINER_OF(work, struct trackball_arrows_data, tap_work);
+    const struct trackball_arrows_config *config = data->dev->config;
+
+    raise_zmk_keycode_state_changed_from_encoded(config->key_codes[data->key_index], true,
+                                                 k_uptime_get());
+    k_work_schedule(&data->release_work, K_MSEC(config->tap_ms + config->wait_ms));
+}
 
 static int trackball_arrows_handle_event(const struct device *dev, struct input_event *event,
                                          uint32_t param1, uint32_t param2,
@@ -35,6 +57,12 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
 
     const struct trackball_arrows_config *config = dev->config;
     struct trackball_arrows_data *data = dev->data;
+
+    if (data->active) {
+        data->x = 0;
+        data->y = 0;
+        return ZMK_INPUT_PROC_STOP;
+    }
 
     if (event->code == INPUT_REL_X) {
         data->x += event->value;
@@ -50,26 +78,9 @@ static int trackball_arrows_handle_event(const struct device *dev, struct input_
     }
 
     if (binding_index >= 0) {
-        struct zmk_behavior_binding_event behavior_event = {
-            .position = ZMK_VIRTUAL_KEY_POSITION_BEHAVIOR_INPUT_PROCESSOR(
-                state->input_device_index, binding_index),
-            .timestamp = k_uptime_get(),
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-            .source = ZMK_POSITION_STATE_CHANGE_SOURCE_LOCAL,
-#endif
-        };
-
-        int ret = zmk_behavior_queue_add(&behavior_event, config->bindings[binding_index], true,
-                                         config->tap_ms);
-        if (ret < 0) {
-            return ret;
-        }
-
-        ret = zmk_behavior_queue_add(&behavior_event, config->bindings[binding_index], false,
-                                     config->wait_ms);
-        if (ret < 0) {
-            return ret;
-        }
+        data->key_index = binding_index;
+        data->active = true;
+        k_work_submit(&data->tap_work);
 
         data->x = 0;
         data->y = 0;
@@ -82,25 +93,26 @@ static struct zmk_input_processor_driver_api trackball_arrows_api = {
     .handle_event = trackball_arrows_handle_event,
 };
 
-static int trackball_arrows_init(const struct device *dev) { return 0; }
+static int trackball_arrows_init(const struct device *dev) {
+    struct trackball_arrows_data *data = dev->data;
 
-#define TRACKBALL_ARROWS_BINDING(i, n)                                                            \
-    {                                                                                              \
-        .behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, i)),                   \
-        .param1 = COND_CODE_0(DT_INST_PHA_HAS_CELL_AT_IDX(n, bindings, i, param1), (0),           \
-                              (DT_INST_PHA_BY_IDX(n, bindings, i, param1))),                      \
-        .param2 = COND_CODE_0(DT_INST_PHA_HAS_CELL_AT_IDX(n, bindings, i, param2), (0),           \
-                              (DT_INST_PHA_BY_IDX(n, bindings, i, param2))),                      \
-    }
+    data->dev = dev;
+    k_work_init(&data->tap_work, trackball_arrows_tap_work);
+    k_work_init_delayable(&data->release_work, trackball_arrows_release_work);
+
+    return 0;
+}
+
+#define TRACKBALL_ARROWS_KEY_CODE(i, n) DT_INST_PROP_BY_IDX(n, key_codes, i)
 
 #define TRACKBALL_ARROWS_INST(n)                                                                  \
-    BUILD_ASSERT(DT_INST_PROP_LEN(n, bindings) == 4,                                              \
-                 "trackball arrows requires four bindings: right, left, up, down");                \
+    BUILD_ASSERT(DT_INST_PROP_LEN(n, key_codes) == 4,                                             \
+                 "trackball arrows requires four key codes: right, left, up, down");               \
     static const struct trackball_arrows_config trackball_arrows_config_##n = {                    \
         .tick = DT_INST_PROP(n, tick),                                                            \
         .tap_ms = DT_INST_PROP(n, tap_ms),                                                        \
         .wait_ms = DT_INST_PROP(n, wait_ms),                                                      \
-        .bindings = {LISTIFY(4, TRACKBALL_ARROWS_BINDING, (, ), n)},                              \
+        .key_codes = {LISTIFY(4, TRACKBALL_ARROWS_KEY_CODE, (, ), n)},                            \
     };                                                                                             \
     static struct trackball_arrows_data trackball_arrows_data_##n;                                 \
     DEVICE_DT_INST_DEFINE(n, &trackball_arrows_init, NULL, &trackball_arrows_data_##n,             \

@@ -10,12 +10,12 @@ properties:
     required: true
   tap-ms:
     type: int
-    default: 0
+    default: 5
   wait-ms:
     type: int
-    default: 0
-  bindings:
-    type: phandle-array
+    default: 20
+  key-codes:
+    type: array
     required: true
   track-remainders:
     type: boolean
