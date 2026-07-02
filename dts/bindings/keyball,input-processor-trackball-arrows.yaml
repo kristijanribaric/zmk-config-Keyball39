@@ -14,8 +14,8 @@ properties:
   wait-ms:
     type: int
     default: 20
-  bindings:
-    type: phandle-array
+  key-codes:
+    type: array
     required: true
   track-remainders:
     type: boolean

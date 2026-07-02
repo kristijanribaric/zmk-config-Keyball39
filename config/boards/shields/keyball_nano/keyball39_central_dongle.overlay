@@ -55,11 +55,7 @@
         tick = <10>;
         tap-ms = <5>;
         wait-ms = <20>;
-        bindings =
-            <&kp RIGHT_ARROW>,
-            <&kp LEFT_ARROW>,
-            <&kp UP_ARROW>,
-            <&kp DOWN_ARROW>;
+        key-codes = <RIGHT_ARROW LEFT_ARROW UP_ARROW DOWN_ARROW>;
     };
 };
 
