@@ -35,7 +35,9 @@
 
         scroll {
             layers = <1>;
-            input-processors = <&zip_xy_to_scroll_mapper>;
+            input-processors =
+                <&zip_xy_to_scroll_mapper>,
+                <&zip_scroll_scaler 1 2>;
         };
 
         caret_scroll {
@@ -52,7 +54,8 @@
     trackball_arrows: trackball_arrows {
         compatible = "keyball,input-processor-trackball-arrows";
         #input-processor-cells = <0>;
-        tick = <1>;
+        tick = <5>;
+        wait-ms = <10>;
         key-codes = <RIGHT_ARROW LEFT_ARROW UP_ARROW DOWN_ARROW>;
     };
 };
