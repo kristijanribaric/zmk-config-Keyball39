@@ -93,6 +93,18 @@
             require-prior-idle-ms = <0>;
             flavor = "tap-preferred";
         };
+
+        ml: ml {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ML";
+            bindings = <&kp>, <&to>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <190>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <0>;
+            flavor = "tap-preferred";
+        };
     };
 
     macros {
@@ -112,7 +124,7 @@
             bindings = <
 &kp Q             &kp W         &kp E     &kp R                &kp T                                          &kp Z          &kp U  &kp I      &kp O    &kp P
 &hm LEFT_SHIFT A  &kp S         &kp D     &hl 1 F              &kp G                                          &kp H          &kp J  &kp K      &kp L    &hm RIGHT_SHIFT SEMI
-&hm LCTRL Y       &kp X         &kp C     &hl 3 V              &kp B                                          &kp N          &kp M  &kp COMMA  &kp DOT  &hm RCTRL SLASH
+&hm LCTRL Y       &kp X         &kp C     &hl 3 V              &kp B                                          &kp N          &kp M  &kp COMMA  &kp DOT  &ml RCTRL 5
 &kp TAB           &kp LEFT_WIN  &kp LALT  &mt LEFT_GUI ESCAPE  &st LALT LEFT_SHIFT  &hl 4 SPACE  &hl 2 ENTER  &kp BACKSPACE                             &mo 5
             >;
         };
@@ -162,7 +174,7 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans                  &trans    &trans     &trans     &trans     &trans
 &trans  &trans  &trans  &trans  &trans                  &mkp MB5  &trans     &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans                  &mkp MB4  &mkp LCLK  &mkp RCLK  &mkp MCLK  &trans
+&trans  &trans  &trans  &trans  &trans                  &mkp MB4  &mkp LCLK  &mkp RCLK  &mkp MCLK  &to 0
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                                     &trans
             >;
         };
