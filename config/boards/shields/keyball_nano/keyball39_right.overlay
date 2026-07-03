@@ -14,6 +14,7 @@
 &kscan0 {
     compatible = "zmk,kscan-gpio-matrix";
     label = "KSCAN";
+    wakeup-source;
 
     row-gpios
         = <&pro_micro 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
