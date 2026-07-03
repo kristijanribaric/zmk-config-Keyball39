@@ -2,6 +2,13 @@
 #include <physical_layouts.dtsi>
 
 / {
+    esb_split {
+        compatible = "zmk,esb-split";
+        base-addr-0 = <0x39 0x4B 0x42 0x4C>;
+        base-addr-1 = <0xD9 0x39 0x4B 0x39>;
+        addr-prefix = <0x39 0x4B 0x4C 0x52 0xD0 0xD1 0xD2 0xD3>;
+    };
+
     chosen {
 	zmk,physical-layout = &keyball_physical_layout;
     };
