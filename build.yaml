@@ -9,7 +9,10 @@ include:
     artifact-name: keyball39_central_dongle_plain
   - board: nice_nano@2.0.0//zmk
     shield: keyball39_left
+    artifact-name: keyball39_left
   - board: nice_nano@2.0.0//zmk
     shield: keyball39_right
+    artifact-name: keyball39_right
   - board: nice_nano@2.0.0//zmk
     shield: settings_reset
+    artifact-name: settings_reset
