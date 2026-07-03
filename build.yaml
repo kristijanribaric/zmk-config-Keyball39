@@ -8,10 +8,12 @@ include:
     shield: keyball39_central_dongle_plain
     artifact-name: keyball39_central_dongle_plain
   - board: nice_nano_v2
-    shield: keyball39_left
+    shield: keyball39_left nice_view_adapter nice_view
+    cmake-args: -DCONFIG_ZMK_DISPLAY_STATUS_SCREEN_BUILT_IN=y -DCONFIG_NICE_VIEW_WIDGET_STATUS=n
     artifact-name: keyball39_left
   - board: nice_nano_v2
-    shield: keyball39_right
+    shield: keyball39_right nice_view_adapter nice_view
+    cmake-args: -DCONFIG_ZMK_DISPLAY_STATUS_SCREEN_BUILT_IN=y -DCONFIG_NICE_VIEW_WIDGET_STATUS=n
     artifact-name: keyball39_right
   - board: nice_nano_v2
     shield: settings_reset
