@@ -2,8 +2,8 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: charlesmst
-      url-base: https://github.com/charlesmst
+    - name: badjeff
+      url-base: https://github.com/badjeff
     - name: nrfconnect
       url-base: https://github.com/nrfconnect
     - name: mochukeeb
@@ -16,8 +16,8 @@ manifest:
       revision: v0.3.0
       import: app/west.yml
     - name: zmk-feature-split-esb
-      remote: charlesmst
-      revision: feature/key-state-bitmap
+      remote: badjeff
+      revision: zmk-0.3
     - name: sdk-nrf
       remote: nrfconnect
       revision: v2.6.4
