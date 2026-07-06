@@ -164,15 +164,15 @@
             bindings = <
 &kp C_VOLUME_UP    &trans                &kp LC(Y)              &kp LC(Z)           &kp LG(V)                   &kp RA(BACKSLASH)  &kp HOME        &kp UP_ARROW    &kp END          &kp INSERT
 &kp C_VOLUME_DOWN  &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp LC(C)           &kp LC(V)                   &kp PAGE_UP        &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &mkp MB5
-&trans             &mo 6                 &kp RA(SEMICOLON)      &kp RA(APOSTROPHE)  &kt LC(X)                   &kp PAGE_DOWN      &mkp LCLK       &mkp RCLK       &mkp MCLK        &mkp MB4
-&trans             &trans                &bootloader            &trans              &trans     &trans  &kp TAB  &kp DELETE                                                          &mo 6
+&trans             &mo SNIPE             &kp RA(SEMICOLON)      &kp RA(APOSTROPHE)  &kt LC(X)                   &kp PAGE_DOWN      &mkp LCLK       &mkp RCLK       &mkp MCLK        &mkp MB4
+&trans             &trans                &bootloader            &trans              &trans     &trans  &kp TAB  &kp DELETE                                                          &mo SNIPE
             >;
         };
 
         mouse_layer {
             label = "MOUSE";
             bindings = <
-&trans  &trans  &trans  &trans  &trans                  &trans    &trans     &trans     &trans     &mo 6
+&trans  &trans  &trans  &trans  &trans                  &trans    &trans     &trans     &trans     &mo SNIPE
 &trans  &trans  &trans  &trans  &trans                  &mkp MB5  &trans     &trans     &trans     &mo 1
 &trans  &trans  &trans  &trans  &trans                  &mkp MB4  &mkp LCLK  &mkp RCLK  &mkp MCLK  &to 0
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                                     &trans
