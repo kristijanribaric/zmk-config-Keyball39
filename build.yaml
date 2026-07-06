@@ -1,12 +1,17 @@
 include:
-  - board: nice_nano_v2
-    shield: keyball39_central_dongle dongle_display
+  - board: nice_nano@2.0.0//zmk
+    shield: keyball39_central_dongle
     snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
     artifact-name: keyball39_central_dongle_oled
-  - board: nice_nano_v2
+
+  - board: nice_nano@2.0.0//zmk
     shield: keyball39_left nice_view_adapter nice_view
-  - board: nice_nano_v2
+    artifact-name: keyball39_left-nice_nano_v2
+
+  - board: nice_nano@2.0.0//zmk
     shield: keyball39_right nice_view_adapter nice_view
-  - board: nice_nano_v2
+    artifact-name: keyball39_right-nice_nano_v2
+
+  - board: nice_nano@2.0.0//zmk
     shield: settings_reset
+    artifact-name: settings_reset-nice_nano_v2

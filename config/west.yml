@@ -2,20 +2,15 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: mochukeeb
-      url-base: https://github.com/mochukeeb
-    - name: englmaxi
-      url-base: https://github.com/englmaxi
+    - name: badjeff
+      url-base: https://github.com/badjeff
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: v0.3.0
+      revision: main
       import: app/west.yml
     - name: zmk-pmw3610-driver
-      remote: mochukeeb
+      remote: badjeff
       revision: main
-    - name: zmk-dongle-display
-      remote: englmaxi
-      revision: v0.3
   self:
     path: config
