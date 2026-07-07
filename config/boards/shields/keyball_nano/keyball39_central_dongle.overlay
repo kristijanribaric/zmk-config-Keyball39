@@ -6,6 +6,7 @@
 
 #include "keyball39.dtsi"
 #include <dt-bindings/zmk/keys.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <input/processors.dtsi>
 
 / {
@@ -37,6 +38,7 @@
             layers = <1>;
             input-processors =
                 <&zip_xy_to_scroll_mapper>,
+                <&keyball_scroll_y_inverter (-1) 1>,
                 <&zip_scroll_scaler 1 24>;
         };
 
@@ -57,6 +59,14 @@
         tick = <5>;
         wait-ms = <10>;
         key-codes = <RIGHT_ARROW LEFT_ARROW UP_ARROW DOWN_ARROW>;
+    };
+
+    keyball_scroll_y_inverter: keyball_scroll_y_inverter {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_WHEEL>;
+        track-remainders;
     };
 };
 
