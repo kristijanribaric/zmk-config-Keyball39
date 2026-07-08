@@ -116,6 +116,22 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        to_gaming {
+            bindings = <&to 7>;
+            key-positions = <30 38>;
+            layers = <0>;
+        };
+
+        to_base {
+            bindings = <&to 0>;
+            key-positions = <30 38>;
+            layers = <7>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
