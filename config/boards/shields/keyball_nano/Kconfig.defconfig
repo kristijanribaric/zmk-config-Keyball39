@@ -15,6 +15,40 @@ config ZMK_SPLIT
 	
 endif
 
+if SHIELD_KEYBALL39_ESB_NICE_VIEW
+
+config LS0XX_VCOM_THREAD_PRIO
+    default 11
+
+config LV_Z_VDB_SIZE
+    default 100
+
+config LV_DPI_DEF
+    default 161
+
+config LV_Z_BITS_PER_PIXEL
+    default 1
+
+choice LV_COLOR_DEPTH
+    default LV_COLOR_DEPTH_1
+endchoice
+
+choice ZMK_DISPLAY_WORK_QUEUE
+    default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
+endchoice
+
+choice ZMK_DISPLAY_STATUS_SCREEN
+    default ZMK_DISPLAY_STATUS_SCREEN_BUILT_IN
+endchoice
+
+config LV_Z_MEM_POOL_SIZE
+    default 5120
+
+config ZMK_WIDGET_BATTERY_STATUS_SHOW_PERCENTAGE
+    default y
+
+endif
+
 if ZMK_DISPLAY
 
 config I2C
