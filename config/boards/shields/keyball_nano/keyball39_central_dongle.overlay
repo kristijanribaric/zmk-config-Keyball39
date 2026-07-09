@@ -4,74 +4,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "keyball39.dtsi"
-#include "keyball39_esb.dtsi"
-#include <dt-bindings/zmk/keys.h>
-#include <zephyr/dt-bindings/input/input-event-codes.h>
-#include <input/processors.dtsi>
+#include "keyball39_central_dongle_common.dtsi"
 
 / {
-    #address-cells = <1>;
-    #size-cells = <0>;
-
     chosen {
-        zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
     };
-
-    mock_kscan: kscan_1 {
-        compatible = "zmk,kscan-mock";
-        columns = <0>;
-        rows = <0>;
-        events = <0>;
-    };
-
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&split_trackball>;
-
-        scroll {
-            layers = <1>;
-            input-processors =
-                <&zip_xy_to_scroll_mapper>,
-                <&keyball_scroll_y_inverter (-1) 1>,
-                <&zip_scroll_scaler 1 24>;
-        };
-
-        caret_scroll {
-            layers = <3>;
-            input-processors = <&trackball_arrows>;
-        };
-
-        snipe {
-            layers = <6>;
-            input-processors = <&zip_xy_scaler 1 4>;
-        };
-    };
-
-    trackball_arrows: trackball_arrows {
-        compatible = "keyball,input-processor-trackball-arrows";
-        #input-processor-cells = <0>;
-        tick = <5>;
-        wait-ms = <10>;
-        key-codes = <RIGHT_ARROW LEFT_ARROW UP_ARROW DOWN_ARROW>;
-    };
-
-    keyball_scroll_y_inverter: keyball_scroll_y_inverter {
-        compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>;
-        type = <INPUT_EV_REL>;
-        codes = <INPUT_REL_WHEEL>;
-        track-remainders;
-    };
-};
-
-&split_trackball {
-    status = "okay";
-};
-
-&keyball_physical_layout {
-    kscan = <&mock_kscan>;
 };
 
 &pinctrl {

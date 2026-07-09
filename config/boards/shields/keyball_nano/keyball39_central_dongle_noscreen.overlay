@@ -1,0 +1,7 @@
+/*
+ * Copyright (c) 2020 ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "keyball39_central_dongle_common.dtsi"
