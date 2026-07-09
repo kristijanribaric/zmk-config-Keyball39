@@ -52,7 +52,7 @@ jobs:
           echo "base_dir=${GITHUB_WORKSPACE}" >> "$GITHUB_ENV"
           echo "zephyr_version=${ZEPHYR_VERSION}" >> "$GITHUB_ENV"
           echo "extra_west_args=${extra_west_args}" >> "$GITHUB_ENV"
-          echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}" >> "$GITHUB_ENV"
+          echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"} -DZMK_EXTRA_MODULES=\"${GITHUB_WORKSPACE}\"" >> "$GITHUB_ENV"
           echo "display_name=${shield:+$shield - }${board}" >> "$GITHUB_ENV"
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board//\//_}-zmk}" >> "$GITHUB_ENV"
 
