@@ -78,8 +78,6 @@
         y-input-code = <INPUT_REL_Y>;
         cpi = <400>;
         invert-y;
-        force-awake;
-        force-awake-4ms-mode;
     };
 };
 
