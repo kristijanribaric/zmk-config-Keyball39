@@ -10,11 +10,11 @@ include:
     artifact-name: keyball39_central_dongle_noscreen
 
   - board: nice_nano@2.0.0//zmk
-    shield: keyball39_left nice_view_adapter keyball39_esb_nice_view
+    shield: keyball39_left nice_view_adapter nice_view_gem
     artifact-name: keyball39_left-nice_nano_v2
 
   - board: nice_nano@2.0.0//zmk
-    shield: keyball39_right nice_view_adapter keyball39_esb_nice_view
+    shield: keyball39_right nice_view_adapter nice_view_gem
     artifact-name: keyball39_right-nice_nano_v2
 
   - board: nice_nano@2.0.0//zmk
