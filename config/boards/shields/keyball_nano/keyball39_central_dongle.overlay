@@ -66,6 +66,10 @@
     };
 };
 
+&split_trackball {
+    status = "okay";
+};
+
 &keyball_physical_layout {
     kscan = <&mock_kscan>;
 };

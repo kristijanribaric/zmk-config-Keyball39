@@ -84,5 +84,6 @@
 };
 
 &split_trackball {
+    status = "okay";
     device = <&trackball>;
 };

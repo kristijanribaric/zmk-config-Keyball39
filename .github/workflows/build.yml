@@ -45,16 +45,31 @@ jobs:
           artifact_name: ${{ matrix.artifact-name }}
           snippet: ${{ matrix.snippet }}
         run: |
+          base_dir="${GITHUB_WORKSPACE}"
+          zmk_load_arg=""
+          if [ -e zephyr/module.yml ]; then
+            base_dir="${TMPDIR:-/tmp}/zmk-config"
+            mkdir -p "${base_dir}"
+            zmk_load_arg=" -DZMK_EXTRA_MODULES=\"${GITHUB_WORKSPACE}\""
+          fi
+
           if [ -n "${snippet}" ]; then
             extra_west_args="-S \"${snippet}\""
           fi
 
-          echo "base_dir=${GITHUB_WORKSPACE}" >> "$GITHUB_ENV"
+          echo "base_dir=${base_dir}" >> "$GITHUB_ENV"
           echo "zephyr_version=${ZEPHYR_VERSION}" >> "$GITHUB_ENV"
           echo "extra_west_args=${extra_west_args}" >> "$GITHUB_ENV"
-          echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"} -DZMK_EXTRA_MODULES=\"${GITHUB_WORKSPACE}\"" >> "$GITHUB_ENV"
+          echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> "$GITHUB_ENV"
           echo "display_name=${shield:+$shield - }${board}" >> "$GITHUB_ENV"
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board//\//_}-zmk}" >> "$GITHUB_ENV"
+
+      - name: Copy config files to isolated temporary directory
+        run: |
+          if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
+            mkdir "${{ env.base_dir }}/config"
+            cp -R config/* "${{ env.base_dir }}/config/"
+          fi
 
       - name: Cache west modules
         uses: actions/cache@v5
@@ -63,13 +78,13 @@ jobs:
           cache_name: cache-zephyr-${{ env.zephyr_version }}-modules
         with:
           path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
-            zmk/
-            nrf/
-            nrfxlib/
+            ${{ env.base_dir }}/modules/
+            ${{ env.base_dir }}/tools/
+            ${{ env.base_dir }}/zephyr/
+            ${{ env.base_dir }}/bootloader/
+            ${{ env.base_dir }}/zmk/
+            ${{ env.base_dir }}/nrf/
+            ${{ env.base_dir }}/nrfxlib/
           key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('**/west.yml', '**/build.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache_name }}-
@@ -77,21 +92,26 @@ jobs:
             ${{ runner.os }}-
 
       - name: West init
-        run: west init -l config
+        working-directory: ${{ env.base_dir }}
+        run: west init -l "${{ env.base_dir }}/config"
 
       - name: West update
+        working-directory: ${{ env.base_dir }}
         run: west update --fetch-opt=--filter=tree:0
 
       - name: Apply ESB module patches
+        working-directory: ${{ env.base_dir }}
         run: |
           west patch -sm zmk-feature-split-esb clean || true
           west forall nrf -c 'git reset --hard HEAD && git clean -fdx'
           west patch -sm zmk-feature-split-esb apply
 
       - name: West Zephyr export
+        working-directory: ${{ env.base_dir }}
         run: west zephyr-export
 
       - name: West build (${{ env.display_name }})
+        working-directory: ${{ env.base_dir }}
         shell: sh -x {0}
         run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/config ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
 
