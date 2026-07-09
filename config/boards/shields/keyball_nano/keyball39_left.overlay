@@ -5,6 +5,13 @@
  */
 
 #include "keyball39.dtsi"
+#include "keyball39_esb.dtsi"
+
+/ {
+    chosen {
+        zmk,esb-self = &left_esb;
+    };
+};
 
 &kscan0 {
     compatible = "zmk,kscan-gpio-matrix";

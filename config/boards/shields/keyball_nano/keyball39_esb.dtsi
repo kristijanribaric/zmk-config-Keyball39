@@ -1,0 +1,38 @@
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    esb_link {
+        compatible = "zmk,split-esb";
+        base-address = [4B 45 59 39];
+        tx-power-dbm = <8>;
+        use-fast-ramp-up;
+        lossy-codes
+            = <INPUT_EV_REL INPUT_REL_X>
+            , <INPUT_EV_REL INPUT_REL_Y>
+            ;
+
+        peripherals {
+            left_esb: peripheral_left {
+                pipe = <0>;
+                prefix = <0x4B>;
+                weight = <1>;
+            };
+
+            right_esb: peripheral_right {
+                pipe = <1>;
+                prefix = <0xC3>;
+                weight = <2>;
+            };
+        };
+    };
+
+    split_inputs {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        split_trackball: split_trackball@1 {
+            compatible = "zmk,input-split";
+            reg = <1>;
+        };
+    };
+};

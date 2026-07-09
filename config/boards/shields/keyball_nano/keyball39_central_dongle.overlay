@@ -5,6 +5,7 @@
  */
 
 #include "keyball39.dtsi"
+#include "keyball39_esb.dtsi"
 #include <dt-bindings/zmk/keys.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <input/processors.dtsi>
@@ -23,11 +24,6 @@
         columns = <0>;
         rows = <0>;
         events = <0>;
-    };
-
-    split_trackball: split_trackball@0 {
-        compatible = "zmk,input-split";
-        reg = <0>;
     };
 
     trackball_listener {
