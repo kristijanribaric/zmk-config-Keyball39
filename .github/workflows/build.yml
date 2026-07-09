@@ -83,7 +83,10 @@ jobs:
         run: west update --fetch-opt=--filter=tree:0
 
       - name: Apply ESB module patches
-        run: west patch -sm zmk-feature-split-esb apply
+        run: |
+          west patch -sm zmk-feature-split-esb clean || true
+          west forall nrf -c 'git reset --hard HEAD && git clean -fdx'
+          west patch -sm zmk-feature-split-esb apply
 
       - name: West Zephyr export
         run: west zephyr-export
