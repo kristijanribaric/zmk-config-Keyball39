@@ -49,7 +49,7 @@ config ZMK_WIDGET_BATTERY_STATUS_SHOW_PERCENTAGE
 
 endif
 
-if ZMK_DISPLAY
+if ZMK_DISPLAY && !SHIELD_NICE_VIEW_GEM
 
 config I2C
     default y
