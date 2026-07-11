@@ -6,7 +6,7 @@
         base-address = [4B 45 59 39];
         tx-power-dbm = <8>;
         use-fast-ramp-up;
-        rssi-floor-dbm = <-78>;
+        rssi-floor-dbm = <(-78)>;
         hop-window-ms = <24>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
