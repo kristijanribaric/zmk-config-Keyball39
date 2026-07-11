@@ -5,8 +5,6 @@
         compatible = "zmk,split-esb";
         base-address = [4B 45 59 39];
         tx-power-dbm = <8>;
-        bitrate-kbps = <1000>;
-        hop-threshold = <8>;
         use-fast-ramp-up;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
