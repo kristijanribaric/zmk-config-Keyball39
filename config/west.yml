@@ -21,7 +21,7 @@ manifest:
       remote: kristijanribaric
       revision: main
     - name: zmk-feature-split-esb
-      remote: kristijanribaric
+      remote: damex
       revision: main
       import: true
   self:
