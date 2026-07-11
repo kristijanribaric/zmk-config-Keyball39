@@ -6,6 +6,8 @@
         base-address = [4B 45 59 39];
         tx-power-dbm = <8>;
         use-fast-ramp-up;
+        rssi-floor-dbm = <-78>;
+        hop-window-ms = <24>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
             , <INPUT_EV_REL INPUT_REL_Y>
@@ -15,13 +17,13 @@
             left_esb: peripheral_left {
                 pipe = <0>;
                 prefix = <0x4B>;
-                weight = <2>;
+                weight = <4>;
             };
 
             right_esb: peripheral_right {
                 pipe = <1>;
                 prefix = <0xC3>;
-                weight = <2>;
+                weight = <1>;
             };
         };
     };
