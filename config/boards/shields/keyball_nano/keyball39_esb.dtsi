@@ -5,8 +5,8 @@
         compatible = "zmk,split-esb";
         base-address = [4B 45 59 39];
         tx-power-dbm = <8>;
-        retransmit-count = <8>;
-        retransmit-delay-us = <750>;
+        bitrate-kbps = <1000>;
+        hop-threshold = <8>;
         use-fast-ramp-up;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
@@ -17,7 +17,7 @@
             left_esb: peripheral_left {
                 pipe = <0>;
                 prefix = <0x4B>;
-                weight = <1>;
+                weight = <2>;
             };
 
             right_esb: peripheral_right {
