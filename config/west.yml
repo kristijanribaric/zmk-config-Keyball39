@@ -22,7 +22,7 @@ manifest:
       revision: main
     - name: zmk-feature-split-esb
       remote: kristijanribaric
-      revision: main
+      revision: temp
       import: true
   self:
     path: config
