@@ -5,6 +5,8 @@
         compatible = "zmk,split-esb";
         base-address = [4B 45 59 39];
         tx-power-dbm = <8>;
+        retransmit-count = <8>;
+        retransmit-delay-us = <750>;
         use-fast-ramp-up;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
