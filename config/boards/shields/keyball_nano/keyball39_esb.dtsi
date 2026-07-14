@@ -7,6 +7,7 @@
         tx-power-dbm = <8>;
         use-fast-ramp-up;
         hop-window-ms = <24>;
+        survey-threshold-dbm = <0>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
             , <INPUT_EV_REL INPUT_REL_Y>
