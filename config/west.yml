@@ -17,7 +17,7 @@ manifest:
       import: app/west.yml
     - name: zmk-feature-split-esb
       remote: badjeff
-      revision: zmk-0.3
+      revision: main
     - name: sdk-nrf
       remote: nrfconnect
       revision: v2.6.4

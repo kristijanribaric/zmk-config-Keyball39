@@ -116,6 +116,22 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        to_gaming {
+            bindings = <&to 7>;
+            key-positions = <30 38>;
+            layers = <0>;
+        };
+
+        to_base {
+            bindings = <&to 0>;
+            key-positions = <30 38>;
+            layers = <7>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -124,8 +140,8 @@
             bindings = <
 &kp Q             &kp W         &kp E     &kp R                &kp T                                          &kp Z          &kp U  &kp I      &kp O    &kp P
 &hm LEFT_SHIFT A  &kp S         &kp D     &hl 1 F              &kp G                                          &kp H          &kp J  &kp K      &kp L    &hm RIGHT_SHIFT SEMI
-&hm LCTRL Y       &kp X         &kp C     &hl 3 V              &kp B                                          &kp N          &kp M  &kp COMMA  &kp DOT  &ml RCTRL 5
-&kp TAB           &kp LEFT_WIN  &kp LALT  &mt LEFT_GUI ESCAPE  &st LALT LEFT_SHIFT  &hl 4 SPACE  &hl 2 ENTER  &kp BACKSPACE                             &mo 5
+&hm LCTRL Y       &kp X         &kp C     &hl 3 V              &kp B                                          &kp N          &kp M  &kp COMMA  &kp DOT  &hm RCTRL SLASH
+&kp TAB           &kp LEFT_WIN  &kp LALT  &mt LEFT_GUI ESCAPE  &st LALT LEFT_SHIFT  &hl 4 SPACE  &hl 2 ENTER  &kp BACKSPACE                             &to 5
             >;
         };
 
@@ -152,30 +168,30 @@
         function_layer {
             label = "FUN";
             bindings = <
-&trans  &trans  &trans  &trans  &trans                  &trans  &kp F7  &kp F8  &kp F9  &kp F10
-&trans  &trans  &trans  &trans  &trans                  &trans  &kp F4  &kp F5  &kp F6  &kp F11
-&trans  &trans  &trans  &trans  &trans                  &trans  &kp F1  &kp F2  &kp F3  &kp F12
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                          &trans
+&trans       &trans  &trans  &trans  &trans                  &trans  &kp F7  &kp F8  &kp F9  &kp F10
+&trans       &trans  &trans  &trans  &trans                  &trans  &kp F4  &kp F5  &kp F6  &kp F11
+&trans       &trans  &trans  &trans  &trans                  &trans  &kp F1  &kp F2  &kp F3  &kp F12
+&bootloader  &trans  &trans  &trans  &trans  &trans  &trans  &trans                          &trans
             >;
         };
 
         nav_layer {
             label = "NAV";
             bindings = <
-&kp C_VOLUME_UP    &trans                &kp LC(Y)              &kp LC(Z)           &kp LG(V)                   &kp RA(BACKSLASH)  &kp HOME        &kp UP_ARROW    &kp END          &kp INSERT
-&kp C_VOLUME_DOWN  &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp LC(C)           &kp LC(V)                   &kp PAGE_UP        &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &mkp MB5
+&trans             &trans                &kp LC(Y)              &kp LC(Z)           &kp LG(V)                   &kp RA(BACKSLASH)  &kp HOME        &kp UP_ARROW    &kp END          &kp INSERT
+&trans             &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp LC(C)           &kp LC(V)                   &kp PAGE_UP        &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &mkp MB5
 &trans             &mo 6                 &kp RA(SEMICOLON)      &kp RA(APOSTROPHE)  &kt LC(X)                   &kp PAGE_DOWN      &mkp LCLK       &mkp RCLK       &mkp MCLK        &mkp MB4
-&trans             &trans                &bootloader            &trans              &trans     &trans  &kp TAB  &kp DELETE                                                          &mo 6
+&kp C_VOLUME_DOWN  &kp C_VOLUME_UP       &kp K_MUTE             &trans              &trans     &trans  &kp TAB  &kp DELETE                                                          &mo 6
             >;
         };
 
         mouse_layer {
             label = "MOUSE";
             bindings = <
-&trans  &trans  &trans  &trans  &trans                  &trans    &trans     &trans     &trans     &mo 6
-&trans  &trans  &trans  &trans  &trans                  &mkp MB5  &trans     &trans     &trans     &mo 1
-&trans  &trans  &trans  &trans  &trans                  &mkp MB4  &mkp LCLK  &mkp RCLK  &mkp MCLK  &to 0
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                                     &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans     &trans     &trans     &mo 6
+&trans  &trans  &trans  &trans  &trans                  &trans  &mo 1      &trans     &trans     &mkp MB5
+&trans  &trans  &trans  &trans  &trans                  &trans  &mkp LCLK  &mkp RCLK  &mkp MCLK  &mkp MB4
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                                   &to 0
             >;
         };
 
@@ -186,6 +202,16 @@
 &trans  &trans  &trans  &trans  &trans                  &mkp MB5  &trans     &trans     &trans     &trans
 &trans  &trans  &trans  &trans  &trans                  &mkp MB4  &mkp LCLK  &mkp RCLK  &mkp MCLK  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                                     &trans
+            >;
+        };
+
+        gaming {
+            label = "GAMING";
+            bindings = <
+&kp TAB         &kp Q  &kp W  &kp E                &kp R                                          &kp Z          &kp U  &kp I      &kp O    &hl 1 P
+&kp LEFT_SHIFT  &kp A  &kp S  &kp D                &kp F                                          &kp H          &kp J  &kp K      &kp L    &kp SEMI
+&kp LCTRL       &kp Y  &kp X  &kp C                &kp V                                          &kp N          &kp M  &kp COMMA  &kp DOT  &kp SLASH
+&kp T           &kp G  &kp B  &mt LEFT_GUI ESCAPE  &st LALT LEFT_SHIFT  &hl 4 SPACE  &hl 2 ENTER  &kp BACKSPACE                             &to 3
             >;
         };
     };
