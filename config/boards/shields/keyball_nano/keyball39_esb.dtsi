@@ -7,7 +7,6 @@
         hop-channels = [4A 4C 4E 50 52];
         hop-anchors = [4A 4E 52];
         tx-power-dbm = <8>;
-        use-fast-ramp-up;
         hop-window-ms = <24>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
