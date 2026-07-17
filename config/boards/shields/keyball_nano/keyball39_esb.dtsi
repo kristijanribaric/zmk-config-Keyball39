@@ -7,13 +7,9 @@
         hop-channels = [52];
         tx-power-dbm = <8>;
         use-fast-ramp-up;
-        hop-threshold = <24>;
         hop-window-ms = <24>;
         peripheral-timeout-ms = <1000>;
-        retransmit-count = <8>;
-        retransmit-delay-us = <1000>;
         survey-threshold-dbm = <0>;
-        bitrate-kbps = <1000>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
             , <INPUT_EV_REL INPUT_REL_Y>
