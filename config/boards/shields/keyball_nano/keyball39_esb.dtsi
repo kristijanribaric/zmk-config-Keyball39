@@ -3,18 +3,18 @@
 / {
     esb_link {
         compatible = "zmk,split-esb";
-        base-address = [4B 45 59 39];
-        hop-channels = [4A 4C 4E 50 52];
+        base-address = [2D E9 73 5C];
+        hop-channels = [4A 4E 52];
         hop-anchors = [4A 4E 52];
         tx-power-dbm = <8>;
         use-fast-ramp-up;
-        hop-threshold = <8>;
-        hop-min-active = <3>;
-        hop-mask-threshold = <8>;
+        hop-threshold = <24>;
         hop-window-ms = <24>;
         peripheral-timeout-ms = <1000>;
         retransmit-count = <8>;
+        retransmit-delay-us = <1000>;
         survey-threshold-dbm = <0>;
+        bitrate-kbps = <1000>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
             , <INPUT_EV_REL INPUT_REL_Y>
@@ -23,13 +23,13 @@
         peripherals {
             left_esb: peripheral_left {
                 pipe = <0>;
-                prefix = <0x4B>;
+                prefix = <0xA6>;
                 weight = <4>;
             };
 
             right_esb: peripheral_right {
                 pipe = <1>;
-                prefix = <0xC3>;
+                prefix = <0x5B>;
                 weight = <1>;
             };
         };
