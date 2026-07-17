@@ -7,7 +7,14 @@
         hop-channels = [4A 4C 4E 50 52];
         hop-anchors = [4A 4E 52];
         tx-power-dbm = <8>;
+        use-fast-ramp-up;
+        hop-threshold = <8>;
+        hop-min-active = <3>;
+        hop-mask-threshold = <8>;
         hop-window-ms = <24>;
+        peripheral-timeout-ms = <1000>;
+        retransmit-count = <8>;
+        survey-threshold-dbm = <0>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
             , <INPUT_EV_REL INPUT_REL_Y>
