@@ -9,6 +9,7 @@
         use-fast-ramp-up;
         hop-window-ms = <24>;
         peripheral-timeout-ms = <1000>;
+        retransmit-count = <8>;
         survey-threshold-dbm = <0>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
