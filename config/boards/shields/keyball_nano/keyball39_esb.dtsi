@@ -4,8 +4,7 @@
     esb_link {
         compatible = "zmk,split-esb";
         base-address = [2D E9 73 5C];
-        hop-channels = [4A 4C 4E 50 52];
-        hop-anchors = [4A 4E 52];
+        hop-channels = [52];
         tx-power-dbm = <8>;
         use-fast-ramp-up;
         hop-window-ms = <24>;
