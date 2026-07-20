@@ -10,6 +10,13 @@
 / {
     chosen {
         zmk,esb-self = &left_esb;
+        zephyr,console = &keyball_left_usb_uart;
+    };
+};
+
+&zephyr_udc0 {
+    keyball_left_usb_uart: keyball_left_usb_uart {
+        compatible = "zephyr,cdc-acm-uart";
     };
 };
 
