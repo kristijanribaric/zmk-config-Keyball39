@@ -4,10 +4,10 @@ include:
     snippet: studio-rpc-usb-uart
     artifact-name: keyball39_central_dongle_oled
 
-  - board: nice_nano@2.0.0//zmk
+  - board: xiao_ble//zmk
     shield: keyball39_central_dongle_noscreen
     snippet: studio-rpc-usb-uart
-    artifact-name: keyball39_central_dongle_noscreen
+    artifact-name: keyball39_central_dongle_noscreen_xiao_ble
 
   - board: nice_nano@2.0.0//zmk
     shield: keyball39_left nice_view_adapter nice_view_gem
