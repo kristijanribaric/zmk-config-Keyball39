@@ -8,7 +8,7 @@
         tx-power-dbm = <8>;
         use-fast-ramp-up;
         hop-window-ms = <24>;
-        peripheral-timeout-ms = <1000>;
+        peripheral-timeout-ms = <3000>;
         retransmit-count = <8>;
         survey-threshold-dbm = <0>;
         lossy-codes
