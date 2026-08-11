@@ -3,8 +3,9 @@
 / {
     esb_link {
         compatible = "zmk,split-esb";
-        base-address = [2D E9 73 5C];
-        hop-channels = [52];
+        base-address = [8F 34 C9 6D];
+        hop-channels = [04 0E 19 25 31 3D 49 4E];
+        hop-anchors = [04 31 4E];
         tx-power-dbm = <8>;
         use-fast-ramp-up;
         hop-window-ms = <24>;
@@ -19,13 +20,13 @@
         peripherals {
             left_esb: peripheral_left {
                 pipe = <0>;
-                prefix = <0xA6>;
+                prefix = <0x72>;
                 weight = <4>;
             };
 
             right_esb: peripheral_right {
                 pipe = <1>;
-                prefix = <0x5B>;
+                prefix = <0xD4>;
                 weight = <1>;
             };
         };
