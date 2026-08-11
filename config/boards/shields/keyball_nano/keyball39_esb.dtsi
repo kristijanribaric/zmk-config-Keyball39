@@ -11,7 +11,7 @@
         hop-window-ms = <24>;
         peripheral-timeout-ms = <3000>;
         retransmit-count = <12>;
-        survey-threshold-dbm = <-65>;
+        survey-threshold-dbm = <(-65)>;
         lossy-codes
             = <INPUT_EV_REL INPUT_REL_X>
             , <INPUT_EV_REL INPUT_REL_Y>
