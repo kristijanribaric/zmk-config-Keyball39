@@ -1,8 +1,8 @@
 include:
   - board: nice_nano@2.0.0//zmk
-    shield: keyball39_central_dongle dongle_display
+    shield: keyball39_central_dongle
     snippet: studio-rpc-usb-uart
-    artifact-name: keyball39_central_dongle_oled
+    artifact-name: keyball39_central_dongle
 
   - board: nice_nano@2.0.0//zmk
     shield: keyball39_left nice_view_adapter nice_view
