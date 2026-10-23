@@ -57,7 +57,7 @@
             tapping-term-ms = <190>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <0>;
-            flavor = "tap-preferred";
+            flavor = "balanced";
         };
 
         of: one_off {
@@ -91,7 +91,7 @@
             tapping-term-ms = <190>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <0>;
-            flavor = "tap-preferred";
+            flavor = "balanced";
         };
 
         ml: ml {
@@ -103,7 +103,7 @@
             tapping-term-ms = <190>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <0>;
-            flavor = "tap-preferred";
+            flavor = "balanced";
         };
     };
 
