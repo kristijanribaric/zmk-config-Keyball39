@@ -73,6 +73,10 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
+    chosen {
+        zmk,esb-self = &esb_right;
+    };
+
     split_trackball: split_trackball@0 {
         compatible = "zmk,input-split";
         reg = <0>;

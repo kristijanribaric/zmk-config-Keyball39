@@ -6,6 +6,12 @@
 
 #include "keyball39.dtsi"
 
+/ {
+    chosen {
+        zmk,esb-self = &esb_left;
+    };
+};
+
 &kscan0 {
     compatible = "zmk,kscan-gpio-matrix";
     label = "KSCAN";

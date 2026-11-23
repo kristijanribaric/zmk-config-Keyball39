@@ -1,0 +1,35 @@
+/*
+ * ESB (Enhanced ShockBurst) split link shared by the dongle and both halves.
+ * Every device must be built from this same node.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    esb_link: esb_link {
+        compatible = "zmk,split-esb";
+        base-address = [A7 3C 5E 91];
+
+        /* Trackball motion is cumulative on air, so a dropped packet heals with the next one. */
+        lossy-codes
+            = <INPUT_EV_REL INPUT_REL_X>
+            , <INPUT_EV_REL INPUT_REL_Y>
+            ;
+
+        peripherals {
+            esb_left: peripheral_left {
+                pipe = <0>;
+                prefix = <0x4B>;
+                weight = <1>;
+            };
+
+            esb_right: peripheral_right {
+                pipe = <1>;
+                prefix = <0xC3>;
+                weight = <1>;
+            };
+        };
+    };
+};
