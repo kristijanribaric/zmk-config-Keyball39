@@ -74,29 +74,9 @@
     kscan = <&mock_kscan>;
 };
 
-&pinctrl {
-    i2c0_default: i2c0_default {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
-                <NRF_PSEL(TWIM_SCL, 0, 20)>;
-        };
-    };
-
-    i2c0_sleep: i2c0_sleep {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0,17)>,
-                <NRF_PSEL(TWIM_SCL, 0, 20)>;
-            low-power-enable;
-        };
-    };
-};
-
-&i2c0 {
+/* Optional OLED on the XIAO's I2C pins (D4 = SDA, D5 = SCL). Unused while CONFIG_ZMK_DISPLAY=n. */
+&xiao_i2c {
     status = "okay";
-    compatible = "nordic,nrf-twi";
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
-    pinctrl-names = "default", "sleep";
 
     oled: sh1106@3c {
         compatible = "sinowealth,sh1106";
