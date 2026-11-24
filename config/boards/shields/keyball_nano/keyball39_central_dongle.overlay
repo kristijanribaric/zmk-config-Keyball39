@@ -15,7 +15,6 @@
 
     chosen {
         zmk,kscan = &mock_kscan;
-        zephyr,display = &oled;
     };
 
     mock_kscan: kscan_1 {
@@ -72,24 +71,4 @@
 
 &keyball_physical_layout {
     kscan = <&mock_kscan>;
-};
-
-/* Optional OLED on the XIAO's I2C pins (D4 = SDA, D5 = SCL). Unused while CONFIG_ZMK_DISPLAY=n. */
-&xiao_i2c {
-    status = "okay";
-
-    oled: sh1106@3c {
-        compatible = "sinowealth,sh1106";
-        reg = <0x3c>;
-        width = <128>;
-        height = <64>;
-        segment-offset = <2>;
-        page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <63>;
-        segment-remap;
-        com-invdir;
-        inversion-on;
-        prechargep = <0x22>;
-    };
 };
