@@ -8,3 +8,7 @@ endif()
 if(CONFIG_PMW3610 AND NOT CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
   zephyr_library_sources(src/pmw3610_peripheral_stubs.c)
 endif()
+
+if(CONFIG_ZMK_SPLIT_BLE_ANY_CENTRAL)
+  zephyr_library_sources(src/split_ble_any_central.c)
+endif()
